@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "GPT Auto Reply",
+  "version": "1.0.0",
+  "description": "Repete automaticamente uma mensagem no ChatGPT, esperando cada resposta terminar antes do próximo envio.",
+  "permissions": ["storage"],
+  "host_permissions": ["https://chatgpt.com/*", "https://chat.openai.com/*"],
+  "action": { "default_title": "GPT Auto Reply", "default_popup": "popup.html" },
+  "content_scripts": [{
+    "matches": ["https://chatgpt.com/*", "https://chat.openai.com/*"],
+    "js": ["content.js"],
+    "css": ["content.css"],
+    "run_at": "document_idle"
+  }]
+}
