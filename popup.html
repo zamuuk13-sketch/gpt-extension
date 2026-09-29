@@ -1,0 +1,7 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>GPT Auto Reply</title><link rel="stylesheet" href="popup.css"></head>
+<body><main><h1>GPT Auto Reply</h1><p>Repete uma mensagem automaticamente no ChatGPT.</p>
+<label>Mensagem</label><textarea id="message" placeholder="Digite a mensagem que será repetida..."></textarea>
+<div class="row"><div><label>Repetições</label><input id="repeats" type="number" min="1" value="10"></div><div><label>Atraso (s)</label><input id="delay" type="number" min="0" step=".5" value="1"></div></div>
+<label class="check"><input id="infinite" type="checkbox"> Repetir infinitamente</label>
+<button id="start">▶ Iniciar</button><button id="stop">■ Parar</button><div id="status">Pronto.</div></main><script src="popup.js"></script></body></html>
