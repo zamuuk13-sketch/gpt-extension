@@ -1,0 +1,5 @@
+const $=id=>document.getElementById(id);
+async function tab(){const t=await chrome.tabs.query({active:true,currentWindow:true});if(!t[0]?.id)throw Error("Sem aba");return t[0].id}
+$("infinite").onchange=()=>{$("repeats").disabled=$("infinite").checked};
+$("start").onclick=async()=>{try{const id=await tab();const message=$("message").value.trim();if(!message){$("status").textContent="Digite uma mensagem.";return}const r=await chrome.tabs.sendMessage(id,{action:"START",message,repeats:Number($("repeats").value)||1,delay:Number($("delay").value)||0,infinite:$("infinite").checked});$("status").textContent=r?.ok?"Automação iniciada.":(r?.error||"Falhou.")}catch(e){$("status").textContent="Abra o ChatGPT e tente novamente."}};
+$("stop").onclick=async()=>{try{const id=await tab();await chrome.tabs.sendMessage(id,{action:"STOP"});$("status").textContent="Parado."}catch(e){$("status").textContent="Abra o ChatGPT e tente novamente."}};
