@@ -12,5 +12,5 @@ async function waitDone(id){await sleep(600);let saw=false,stable=0,last="";for(
 async function one(text,id){const e=await waitComposer(id);put(e,text);await sleep(150);const b=send();if(b)b.click();else e.dispatchEvent(new KeyboardEvent("keydown",{key:"Enter",code:"Enter",keyCode:13,which:13,bubbles:true}));await waitDone(id)}
 async function start(o){halt();if(!o.message?.trim())return{ok:false,error:"Digite uma mensagem."};running=true;run++;const id=run;show(true);let n=0;while(running&&id===run&&(o.infinite||n<o.repeats)){n++;stat(`Enviando ${n}/${o.infinite?"∞":o.repeats}`);try{await one(o.message,id)}catch(e){stat("Erro: "+e.message);running=false;break}if(running&&(o.infinite||n<o.repeats)&&o.delay>0)await sleep(o.delay*1000)}if(id===run){running=false;stat(`Concluído: ${n} envio(s)`);setTimeout(()=>show(false),2500)}return{ok:true}}
 function halt(){running=false;run++;if(panel){stat("Parado.");setTimeout(()=>show(false),700)}}
-chrome.runtime.onMessage.addListener((m,s,reply)=>{if(m.action==="START"){start(m).then(reply);return true}if(m.action==="STOP"){halt();reply({ok:true})}});
+chrome.runtime.onMessage.addListener((m,s,reply)=>{if(m.action==="PING"){reply({ok:true});return}if(m.action==="START"){start(m).then(reply);return true}if(m.action==="STOP"){halt();reply({ok:true})}});
 })();
